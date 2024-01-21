@@ -1,0 +1,50 @@
+<div class="pageadjust">
+    <div *ngIf="IsRestaurentLogin();else elseblockname">
+        <div *ngIf="isActive;else elseactiveblock">
+            <div class="container">
+                <div class="row">
+                    <div class="col1">
+                        <h3>Hey! {{resobj.resname}}</h3>
+                        
+                        <h4>For Update Your Profile</h4>
+                        <a ><button disabled><s>Update Profile</s></button></a>
+                        <!--<p>For user login.<a [routerLink]="'/userlogin'">click here</a></p> -->
+                    </div>
+            
+                    <div class="col2">
+                        <h3>Password Update</h3>
+                        <div style="height: 30px;" [hidden]="!showmsg1">
+                            <h4 style="background-color:red;">WRONG OLD PASSWORD</h4>
+                        </div>
+                        <div style="height: 30px; " [hidden]="!showmsg2">
+                            <h4 style="background-color:green;">PASSWORD UPDATE SUCCESSFUL</h4>
+                        </div>
+                        <form id="messageform" (ngSubmit)="onSubmit()">
+                            <div><input type="password" name="resoldpass" placeholder="Enter Old Password"
+                                [(ngModel)]="resobj.respass" (keyup)="oldPassValidate()" (blur)="oldPassValidate()"  required>
+                                <p>{{oldPassError}}</p>
+                            </div>
+                            <div><input type="password" name="resnewpass" placeholder="Enter New Password"
+                                    [(ngModel)]="resobj.resnewpass" (keyup)="newPassValidate()" (keyup)="confirmPassValidate()" (blur)="newPassValidate()" required>
+                                <p>{{newPassError}}</p>
+                                </div>
+                            <div><input type="password" name="resconfirmpass" placeholder="Confirm New Password"
+                                    [(ngModel)]="resobj.resconfirmpass" (keyup)="confirmPassValidate()" (blur)="confirmPassValidate()" required>
+                                    <p class="validation-wrong-msg" *ngIf="passwordNotMatch" >Not Matched</p>
+                                    <p class="validation-correct-msg" style="color:green" *ngIf="passwordMatch" >Password Matched</p></div>
+                            <div><button type="submit">Submit</button></div>
+            
+                        </form>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseblockname>
+    <app-pagenotfound></app-pagenotfound>
+</ng-template>
+<ng-template #elseactiveblock>
+    <app-inactivepage></app-inactivepage>
+  </ng-template>
